@@ -1,0 +1,21 @@
+= cmd tool - explanantion
+:toc:
+:toclevels: 4
+:numbered:
+
+== branch
+* `step01-naive`
+
+== goal
+* we use maven to depend on `slf4j-spike-cmd` as a library
+* we want to use the slf4j we like, without opinion from `slf4j-spike-cmd`
+
+
+== explanation
+* no problem for us here, we only receive `slf4j-api` as a dependency
+
+== problem found
+* none
+
+== advantages
+* everything is fine
