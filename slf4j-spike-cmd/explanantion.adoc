@@ -1,0 +1,27 @@
+= cmd tool - explanantion
+:toc:
+:toclevels: 4
+:numbered:
+
+== branch
+* `step01-naive`
+
+== goal
+* we want to use slf4j
+* we want to log to the command line (were are a cli tool, here)
+* we want to be good citizen and don't force use of a specific slf4j implementation to maven downstream (look at slf4j-spike-consumer)
+
+== explanation
+* here, we do a really silly implementation
+** we don't reference any slf4j implementation
+** of course, it won't work and complain that no slf4j implementation has been found
+* We can try to be clever and add it at runtime (`runit.sh`)
+** It won't work either
+
+== problem found
+* adding an slf4j based implementation by `-classpath slf4j-xxx.jar` won't work
+** we already have an `org.slf4j` package inside our fatjar
+** that will prevent any addition to classpath via a jar
+
+== advantages
+* we didn't break the `slf4j-spike-consumer` as maven does not reference any slf4j implementation
