@@ -4,7 +4,7 @@
 :numbered:
 
 == branch
-* `step02-depend-on-slf4j-simplementation-breaks-consumer`
+* `step03-accept-being-invasive-for-downstream`
 
 == goal
 * we use maven to depend on `slf4j-spike-cmd` as a library
@@ -12,24 +12,12 @@
 
 == explanation
 * since `slf4j-spike-cmd` we onboard an slf4j implementation (loback) and slf4j-spike-cmd embarks his (slf4j-simple)..
-* we now have two implementations in the classpath
+* we want to avoid having two implementations in the classpath
+* we will now need to add some `excludes` on `slf4j-spike-cmd` 
 
 == problem found
-* this issues an warning message
-
-----
-SLF4J(W): Class path contains multiple SLF4J providers.
-SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@3b81a1bc]
-SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@64616ca2]
-SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-----
-
-* and in the end the wrong implementation can be used
-
-----
-# we wanted to use logback
-SLF4J(I): Actual provider is of type [org.slf4j.simple.SimpleServiceProvider@3b81a1bc]
-----
+* not very clean to exclude dependencies from upstream
+* but required here
 
 == advantages
-* none for us :-(
+* now we can use the implementation we like (logback)
