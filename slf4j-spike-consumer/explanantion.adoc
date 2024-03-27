@@ -4,18 +4,32 @@
 :numbered:
 
 == branch
-* `step01-naive`
+* `step02-depend-on-slf4j-simplementation-breaks-consumer`
 
 == goal
 * we use maven to depend on `slf4j-spike-cmd` as a library
 * we want to use the slf4j we like, without opinion from `slf4j-spike-cmd`
 
-
 == explanation
-* no problem for us here, we only receive `slf4j-api` as a dependency
+* since `slf4j-spike-cmd` we onboard an slf4j implementation (loback) and slf4j-spike-cmd embarks his (slf4j-simple)..
+* we now have two implementations in the classpath
 
 == problem found
-* none
+* this issues an warning message
+
+----
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@3b81a1bc]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@64616ca2]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+----
+
+* and in the end the wrong implementation can be used
+
+----
+# we wanted to use logback
+SLF4J(I): Actual provider is of type [org.slf4j.simple.SimpleServiceProvider@3b81a1bc]
+----
 
 == advantages
-* everything is fine
+* none for us :-(
