@@ -12,5 +12,9 @@
       <groupId>vanrenter.spike</groupId>
       <artifactId>slf4j-spike-cmd</artifactId>
     </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+	</dependency>
   </dependencies>
 </project>
