@@ -15,6 +15,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 
@@ -41,11 +42,11 @@
                   <exclude>META-INF/*.DSA</exclude>
                   <exclude>META-INF/*.RSA</exclude>
                 </excludes>
-                <!--artifact>org.slf4j:slf4j-simple</artifact>
+                <artifact>org.slf4j:slf4j-simple</artifact>
                 <includes>
                   <include>org/slf4j/**</include>
                   <include>META-INF/services/**</include>
-                </includes-->
+                </includes>
               </filter>
             </filters>
           </configuration>

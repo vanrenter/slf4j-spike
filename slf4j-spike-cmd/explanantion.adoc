@@ -12,16 +12,18 @@
 * we want to be good citizen and don't force use of a specific slf4j implementation to maven downstream (look at slf4j-spike-consumer)
 
 == explanation
-* here, we do a really silly implementation
-** we don't reference any slf4j implementation
-** of course, it won't work and complain that no slf4j implementation has been found
-* We can try to be clever and add it at runtime (`runit.sh`)
-** It won't work either
+* OK. So now, we will declare a maven dependency for implementation
+* but we will mark it as `optional`, so that it is not inherited by maven downstreams
+* we will configure `maven-shade-plugin` to take it into account
 
 == problem found
-* adding an slf4j based implementation by `-classpath slf4j-xxx.jar` won't work
-** we already have an `org.slf4j` package inside our fatjar
-** that will prevent any addition to classpath via a jar
+* we still have the problem that adding the `slf4j-simple` classes to our fat jar won't make it useable
+* but now we discovered something new
+** slf4j relies on `ServiceLocator` for finding its implementation
+** not only on the classpath
+** `ServiceLocator` depends on the file `META-INF/services.xml`
+** So we will add this file in the `maven-shade-plugin` config
+* So, we will modify the `maven`
 
 == advantages
-* we didn't break the `slf4j-spike-consumer` as maven does not reference any slf4j implementation
+* we didn't break the `slf4j-spike-consumer` as the maven dependency is optionnal.
