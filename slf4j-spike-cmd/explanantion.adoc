@@ -12,18 +12,15 @@
 * we want to be good citizen and don't force use of a specific slf4j implementation to maven downstream (look at slf4j-spike-consumer)
 
 == explanation
-* OK. So now, we will declare a maven dependency for implementation
-* but we will mark it as `optional`, so that it is not inherited by maven downstreams
-* we will configure `maven-shade-plugin` to take it into account
+* `maven-shade-plugin` includes all classes in our dependency in a single jar
+* that can break some clever jar features :  `ServiceLocator`, signed jars, osgi bundles, ...
+* spring-boot proposes another plugin that creates fat jars
+* but in a different way
+** the original jar is included in our fat jar
+** and included in the 'jar' classpath
+* that works better with slf4j + implementation, with a simpler config
 
 == problem found
-* we still have the problem that adding the `slf4j-simple` classes to our fat jar won't make it useable
-* but now we discovered something new
-** slf4j relies on `ServiceLocator` for finding its implementation
-** not only on the classpath
-** `ServiceLocator` depends on the file `META-INF/services.xml`
-** So we will add this file in the `maven-shade-plugin` config
-* So, we will modify the `maven`
 
 == advantages
-* we didn't break the `slf4j-spike-consumer` as the maven dependency is optionnal.
+* we can now run our app as if we were running with maven, our with all the jars in our classpath
